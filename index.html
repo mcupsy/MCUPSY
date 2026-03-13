@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MCU PSY 空間預約系統</title>
+<meta property="og:title"       content="MCU PSY 空間預約系統" />
+<meta property="og:description" content="心理學系空間預約平台，可預約 EE702、測驗室、系辦會議室。" />
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://mcupsy.github.io/MCUPSY/" />
 <script>
   const SUPABASE_URL = 'https://pqohummzowbbhobxedcw.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxb2h1bW16b3diYmhvYnhlZGN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNjkyNTcsImV4cCI6MjA4ODk0NTI1N30.jNAS6zp0cED0OkhDnNYXENFo5BfE5ua-J3D7n-T3POM';
@@ -225,7 +229,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
       <div id="login-error" class="alert alert-danger" style="display:none">密碼錯誤，請再試一次。</div>
       <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="doAdminLogin()">登入</button>
-      <p style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center">忘記密碼請聯繫IT人員</p>
+      <p style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center">登入問題請聯繫IT人員</p>
     </div>
   </div>
 
@@ -330,7 +334,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 // ============================================================
 //  ✅ 唯一需要修改的設定區
 // ============================================================
-const ADMIN_PASSWORD = 'P505505'; // ← 修改管理員密碼
+const ADMIN_PASSWORD = 'P505505!'; // ← 修改管理員密碼
 
 const SPACES = [
   { id:'ee702',      name:'EE702',      openDays:[0,1,2,3,4,5,6], openHour:8,  closeHour:22, note:'全週 08–22' },
