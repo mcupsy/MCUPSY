@@ -436,6 +436,7 @@ async function initSupabase() {
     document.getElementById('loading-screen').classList.add('hide');
     return true;
   } catch(e) {
+    console.error("Supabase 連線錯誤細節：", e); // 👉 加入這行來抓蟲
     document.getElementById('loading-screen').classList.add('hide');
     document.getElementById('error-banner').classList.add('show');
     return false;
