@@ -27,7 +27,6 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;min-height:100vh;}
-
 .loading-screen{position:fixed;inset:0;background:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;color:white;gap:16px;}
 .loading-screen.hide{display:none;}
 .spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;}
@@ -36,7 +35,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .error-banner{background:#7a1f1f;color:white;text-align:center;padding:12px 20px;font-size:13px;display:none;}
 .error-banner.show{display:block;}
 
-/* Header */
 .header{background:var(--accent);color:white;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15);}
 .header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px;}
 .logo{font-size:15px;font-weight:700;letter-spacing:.03em;white-space:nowrap;}
@@ -46,18 +44,16 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .nav-tab:hover{background:rgba(255,255,255,.1);color:white;}
 .nav-tab.active{background:white;color:var(--accent);font-weight:600;border-color:white;}
 .pending-badge{background:#e53e3e;color:white;border-radius:10px;padding:1px 6px;font-size:11px;font-weight:700;display:none;}
-.nav-tab.active .pending-badge{background:var(--accent);color:white;}
+.nav-tab.active .pending-badge{background:var(--accent);}
 
 .main{max-width:1000px;margin:0 auto;padding:24px 16px 60px;}
 
-/* Space tabs */
 .space-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
 .space-tab{padding:8px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border-strong);background:var(--surface);color:var(--text-2);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;}
 .space-tab:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
 .space-tab.active{background:var(--accent);color:white;border-color:var(--accent);}
 .space-note{font-size:11px;opacity:.75;margin-left:4px;font-weight:400;}
 
-/* Week nav */
 .week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap;}
 .week-label{font-size:16px;font-weight:600;}
 .week-label small{font-size:13px;font-weight:400;color:var(--text-2);margin-left:8px;}
@@ -85,10 +81,15 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .cal-header-cell .date-num{display:block;font-size:15px;font-weight:600;}
 .cal-body{display:grid;}
 .time-col{border-right:1px solid var(--border);}
-.time-label{height:44px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:11px;color:var(--text-3);border-bottom:1px solid var(--border);}
+.time-label{height:44px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;padding-right:8px;font-size:10px;color:var(--text-3);border-bottom:1px solid var(--border);line-height:1.3;text-align:right;}
+.time-label .tl-slot{font-weight:600;font-size:10px;color:var(--text-2);}
+.time-label .tl-time{font-size:9px;color:var(--text-3);}
+.time-label.gap-row{height:20px;background:#f8f7f4;}
+.time-label.gap-row .tl-time{font-size:9px;color:var(--text-3);font-style:italic;}
 .day-col{border-right:1px solid var(--border);position:relative;}
 .day-col:last-child{border-right:none;}
 .slot{height:44px;border-bottom:1px solid var(--border);cursor:pointer;position:relative;transition:background .1s;}
+.slot.gap-slot{height:20px;background:#f8f7f4;cursor:not-allowed;}
 .slot:last-child{border-bottom:none;}
 .slot.available:hover{background:var(--accent-light);}
 .slot.booked{background:#d8e6f0;cursor:default;}
@@ -103,18 +104,16 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .closed-col:last-child{border-right:none;}
 .closed-col-text{font-size:11px;color:var(--text-3);writing-mode:vertical-rl;letter-spacing:2px;}
 
-/* Slot bars */
-.booking-bar,.pending-bar,.scheduled-bar,.blocked-bar{position:absolute;left:2px;right:2px;top:1px;bottom:1px;border-radius:4px;padding:3px 5px;overflow:hidden;z-index:2;display:flex;flex-direction:column;justify-content:center;}
+.booking-bar,.pending-bar,.scheduled-bar,.blocked-bar{position:absolute;left:2px;right:2px;top:1px;border-radius:4px;padding:3px 5px;overflow:hidden;z-index:2;}
 .booking-bar{background:var(--accent);}
 .booking-bar.admin-bar{background:#1a3a5c;}
 .pending-bar{background:#d97706;}
 .scheduled-bar{background:#059669;}
-.blocked-bar{background:#cccac4;align-items:center;}
-.bar-name{font-size:10px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.bar-sub{font-size:9px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.blocked-bar{background:#cccac4;display:flex;align-items:center;justify-content:center;}
+.bar-name{font-size:10px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
+.bar-sub{font-size:9px;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;}
 .blocked-bar span{font-size:9px;color:#555;text-align:center;line-height:1.3;}
 
-/* Legend */
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);}
 .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
@@ -122,7 +121,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 /* Modal */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .overlay.show{display:flex;}
-.modal{background:var(--surface);border-radius:var(--radius);width:100%;max-width:460px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;max-height:92vh;display:flex;flex-direction:column;}
+.modal{background:var(--surface);border-radius:var(--radius);width:100%;max-width:480px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;max-height:92vh;display:flex;flex-direction:column;}
 .modal-header{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .modal-title{font-size:16px;font-weight:600;}
 .modal-close{background:none;border:none;cursor:pointer;color:var(--text-2);font-size:20px;line-height:1;padding:2px 6px;border-radius:4px;}
@@ -145,12 +144,18 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .alert-warning{background:var(--warning-bg);color:var(--warning);border:1px solid #e5c980;}
 .alert-pending{background:var(--pending-bg);color:var(--pending);border:1px solid #e5c980;}
 
-/* Time chips */
+/* Time chips - hourly */
 .time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px;}
-.time-chip{padding:8px 4px;text-align:center;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;transition:all .15s;background:var(--surface);}
-.time-chip:hover:not(.disabled){border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
-.time-chip.selected{background:var(--accent);color:white;border-color:var(--accent);}
-.time-chip.disabled{background:#eae9e4;color:var(--text-3);cursor:not-allowed;opacity:.6;}
+/* Slot chips - EE702 */
+.slot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px;}
+.time-chip,.slot-chip{padding:8px 6px;text-align:center;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;transition:all .15s;background:var(--surface);}
+.time-chip:hover:not(.disabled),.slot-chip:hover:not(.disabled){border-color:var(--accent);background:var(--accent-light);}
+.time-chip.selected,.slot-chip.selected{background:var(--accent);color:white;border-color:var(--accent);}
+.time-chip.in-range,.slot-chip.in-range{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent);}
+.time-chip.disabled,.slot-chip.disabled{background:#eae9e4;color:var(--text-3);cursor:not-allowed;opacity:.6;}
+.slot-chip .sc-node{font-size:11px;font-weight:700;color:inherit;}
+.slot-chip .sc-time{font-size:10px;color:var(--text-2);margin-top:1px;}
+.slot-chip.selected .sc-time,.slot-chip.in-range .sc-time{color:inherit;opacity:.85;}
 
 /* Confirm */
 .confirm-card{border-radius:var(--radius);padding:20px;margin-bottom:16px;}
@@ -163,16 +168,17 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .confirm-label{color:var(--text-2);min-width:60px;flex-shrink:0;}
 .confirm-value{font-weight:500;}
 
-/* Admin panel */
+/* Admin */
 .panel-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow);}
 .panel-section-header{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .panel-section-title{font-size:14px;font-weight:600;}
+.panel-section.urgent .panel-section-header{background:#fff8f0;}
 .booking-row{display:flex;align-items:flex-start;gap:10px;padding:12px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .booking-row:last-child{border-bottom:none;}
 .booking-row-info{flex:1;min-width:0;}
 .booking-row-name{font-size:14px;font-weight:500;margin-bottom:2px;}
 .booking-row-meta{font-size:12px;color:var(--text-2);line-height:1.8;}
-.booking-row-actions{display:flex;gap:6px;flex-shrink:0;align-items:flex-start;padding-top:2px;}
+.booking-row-actions{display:flex;gap:6px;flex-shrink:0;padding-top:2px;}
 .tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:500;margin-right:4px;}
 .tag-admin{background:var(--accent-light);color:var(--accent);}
 .tag-student{background:#f0f0ec;color:var(--text-2);}
@@ -181,7 +187,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .tag-pending{background:var(--pending-bg);color:var(--pending);}
 .tag-approved{background:var(--success-bg);color:var(--success);}
 .tag-sched{background:var(--sched-bg);color:var(--sched);}
-
 .admin-login{max-width:360px;margin:60px auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);}
 .admin-login h2{font-size:18px;font-weight:600;margin-bottom:6px;}
 .admin-login p{font-size:13px;color:var(--text-2);margin-bottom:24px;}
@@ -189,27 +194,22 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 .badge-count{background:var(--accent);color:white;border-radius:20px;padding:1px 7px;font-size:11px;font-weight:600;}
 .badge-pending{background:#e53e3e;color:white;border-radius:20px;padding:1px 7px;font-size:11px;font-weight:600;}
 
-/* Checkbox group */
 .check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
 .check-label{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;padding:6px 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);transition:all .15s;user-select:none;}
 .check-label:hover{border-color:var(--accent);color:var(--accent);}
 .check-label input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;}
 .check-label.checked{background:var(--accent-light);border-color:var(--accent);color:var(--accent);font-weight:500;}
-
-/* Day-of-week chips */
 .dow-group{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
 .dow-chip{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-strong);border-radius:50%;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s;user-select:none;}
 .dow-chip:hover{border-color:var(--accent);color:var(--accent);}
 .dow-chip.selected{background:var(--accent);color:white;border-color:var(--accent);}
-
-/* Pending section highlight */
-.panel-section.urgent .panel-section-header{background:#fff8f0;border-bottom-color:#f5c09a;}
 
 @media(max-width:640px){
   .logo span{display:none;}
   .field-row{grid-template-columns:1fr;}
   .space-tab{padding:6px 12px;font-size:13px;}
   .booking-row-actions{width:100%;}
+  .slot-grid{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -219,9 +219,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
   <div class="spinner"></div>
   <div class="load-text">連接資料庫中...</div>
 </div>
-<div class="error-banner" id="error-banner">
-  ⚠️ 無法連接資料庫，請確認 SUPABASE_URL 和 SUPABASE_KEY 是否正確。
-</div>
+<div class="error-banner" id="error-banner">⚠️ 無法連接資料庫，請確認 SUPABASE_URL 和 SUPABASE_KEY 是否正確。</div>
 
 <header class="header">
   <div class="header-inner">
@@ -229,7 +227,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchView('student')" id="tab-student">預約日曆</button>
       <button class="nav-tab" onclick="switchView('admin')" id="tab-admin">
-        管理員後台<span class="pending-badge" id="pending-badge"></span>
+        管理員後台 <span class="pending-badge" id="pending-badge"></span>
       </button>
     </div>
   </div>
@@ -239,7 +237,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 <div class="main" id="view-student">
   <div class="space-tabs" id="space-tabs"></div>
   <div class="week-nav">
-    <div class="week-label" id="week-title">本週 <small></small></div>
+    <div class="week-label" id="week-title">本週</div>
     <div class="nav-btns">
       <button class="btn" onclick="changeWeek(-1)">← 上週</button>
       <button class="btn" onclick="goToday()">今天</button>
@@ -254,11 +252,11 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
   </div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1px solid #c4c1b8"></div>可預約</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#d8e6f0"></div>已核准（學生）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d8e6f0"></div>已核准</div>
     <div class="legend-item"><div class="legend-dot" style="background:#c2d4e8"></div>系辦預約</div>
     <div class="legend-item"><div class="legend-dot" style="background:#fef3c7"></div>待審核</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#d1fae5"></div>課表時段</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#e2e0db"></div>封鎖時段</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d1fae5"></div>課表</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e2e0db"></div>封鎖</div>
     <div class="legend-item"><div class="legend-dot" style="background:repeating-linear-gradient(45deg,#f0efeb,#f0efeb 4px,#e6e5e0 4px,#e6e5e0 8px)"></div>非開放日</div>
   </div>
 </div>
@@ -269,13 +267,10 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
     <div class="admin-login">
       <h2>🔒 管理員登入</h2>
       <p>請輸入管理員密碼以進入系辦後台。</p>
-      <div class="field">
-        <label>密碼</label>
-        <input type="password" id="admin-pw-input" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')doAdminLogin()"/>
-      </div>
+      <div class="field"><label>密碼</label><input type="password" id="admin-pw-input" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')doAdminLogin()"/></div>
       <div id="login-error" class="alert alert-danger" style="display:none">密碼錯誤，請再試一次。</div>
       <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="doAdminLogin()">登入</button>
-      <p style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center">如有問題請洽IT人員</p>
+      <p style="font-size:12px;color:var(--text-3);margin-top:12px;text-align:center">預設密碼：admin123</p>
     </div>
   </div>
 
@@ -285,7 +280,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       <button class="btn btn-danger btn-sm" onclick="adminLogout()">登出</button>
     </div>
 
-    <!-- 1. 待審核預約 -->
+    <!-- 待審核 -->
     <div class="panel-section urgent">
       <div class="panel-section-header">
         <span class="panel-section-title">⏳ 待審核預約</span>
@@ -294,7 +289,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       <div id="pending-list"></div>
     </div>
 
-    <!-- 2. 課表匯入 -->
+    <!-- 課表匯入 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">📚 課表匯入</span>
@@ -302,11 +297,10 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
       <div style="padding:16px 18px">
         <div class="field-row">
-          <div class="field"><label>空間</label><select id="sched-space"></select></div>
+          <div class="field"><label>空間</label><select id="sched-space" onchange="updateSchedTimes()"></select></div>
           <div class="field"><label>課程名稱</label><input type="text" id="sched-name" placeholder="例：統計學、心理測驗"/></div>
         </div>
-        <div class="field">
-          <label>上課星期（可多選）</label>
+        <div class="field"><label>上課星期（可多選）</label>
           <div class="dow-group" id="sched-dow-group">
             <div class="dow-chip" data-dow="1" onclick="toggleDow(this)">一</div>
             <div class="dow-chip" data-dow="2" onclick="toggleDow(this)">二</div>
@@ -318,8 +312,8 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
           </div>
         </div>
         <div class="field-row">
-          <div class="field"><label>上課開始時間</label><select id="sched-start"></select></div>
-          <div class="field"><label>上課結束時間</label><select id="sched-end"></select></div>
+          <div class="field"><label>開始時間</label><select id="sched-start"></select></div>
+          <div class="field"><label>結束時間</label><select id="sched-end"></select></div>
         </div>
         <div class="field-row">
           <div class="field"><label>學期開始日期</label><input type="date" id="sched-date-from"/></div>
@@ -327,7 +321,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
         </div>
         <div id="sched-alert"></div>
         <button class="btn btn-primary" id="btn-sched" onclick="addSchedule()">新增課表</button>
-
         <div style="margin-top:20px">
           <div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px">目前課表</div>
           <div id="sched-list"></div>
@@ -335,20 +328,19 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 3. 封鎖時段 -->
+    <!-- 封鎖時段 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">🚫 封鎖時段設定</span>
-        <span style="font-size:12px;color:var(--text-2)">寒暑假、連假、維修等，支援跨日設定</span>
+        <span style="font-size:12px;color:var(--text-2)">支援跨日設定，適合寒暑假、連假、維修</span>
       </div>
       <div style="padding:16px 18px">
-        <div class="field">
-          <label>封鎖空間</label>
+        <div class="field"><label>封鎖空間</label>
           <div class="check-group" id="block-space-group">
             <label class="check-label checked" id="chk-all"><input type="checkbox" value="all" checked onchange="handleSpaceCheck(this)"> 全部空間</label>
-            <label class="check-label" id="chk-ee702"><input type="checkbox" value="ee702" onchange="handleSpaceCheck(this)"> EE702</label>
-            <label class="check-label" id="chk-testroom"><input type="checkbox" value="testroom" onchange="handleSpaceCheck(this)"> 測驗室</label>
-            <label class="check-label" id="chk-officeroom"><input type="checkbox" value="officeroom" onchange="handleSpaceCheck(this)"> 系辦會議室</label>
+            <label class="check-label"><input type="checkbox" value="ee702" onchange="handleSpaceCheck(this)"> EE702</label>
+            <label class="check-label"><input type="checkbox" value="testroom" onchange="handleSpaceCheck(this)"> 測驗室</label>
+            <label class="check-label"><input type="checkbox" value="officeroom" onchange="handleSpaceCheck(this)"> 系辦會議室</label>
           </div>
         </div>
         <div class="field-row">
@@ -369,11 +361,9 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 4. 系辦直接預約 -->
+    <!-- 系辦預約 -->
     <div class="panel-section">
-      <div class="panel-section-header">
-        <span class="panel-section-title">✏️ 系辦直接預約（可覆蓋學生）</span>
-      </div>
+      <div class="panel-section-header"><span class="panel-section-title">✏️ 系辦直接預約（可覆蓋學生）</span></div>
       <div style="padding:16px 18px">
         <div class="field-row">
           <div class="field"><label>空間</label><select id="admin-book-space" onchange="updateAdminTimes()"></select></div>
@@ -389,7 +379,7 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 5. 所有預約記錄 -->
+    <!-- 所有預約 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">📋 所有預約記錄</span>
@@ -414,149 +404,156 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
 
 <script>
 // ============================================================
-//  ✅ 設定區（僅需修改此處）
+//  ✅ 設定區
 // ============================================================
-const ADMIN_PASSWORD = 'P505505!';
+const ADMIN_PASSWORD = 'admin123';
+
+// EE702 節次定義（時間單位：距午夜的分鐘數）
+const EE702_SLOTS = [
+  { id:'01', start:490,  end:540  }, // 08:10–09:00
+  { id:'02', start:540,  end:600  }, // 09:00–10:00
+  { id:'03', start:600,  end:660  }, // 10:00–11:00
+  { id:'04', start:660,  end:720  }, // 11:00–12:00
+  { id:'20', start:720,  end:760  }, // 12:00–12:40
+  // gap 760–780 (12:40–13:00 午休)
+  { id:'05', start:780,  end:840  }, // 13:00–14:00
+  { id:'06', start:840,  end:900  }, // 14:00–15:00
+  { id:'07', start:900,  end:960  }, // 15:00–16:00
+  { id:'08', start:960,  end:1020 }, // 16:00–17:00
+  { id:'09', start:1020, end:1080 }, // 17:00–18:00
+  { id:'40', start:1080, end:1160 }, // 18:00–19:20
+  { id:'50', start:1160, end:1220 }, // 19:20–20:20
+  { id:'60', start:1220, end:1260 }, // 20:20–21:00
+];
+
+// EE702 日曆中的 gap row（視覺上顯示午休）
+const EE702_CAL_ROWS = [];
+EE702_SLOTS.forEach((s,i) => {
+  EE702_CAL_ROWS.push({ ...s, isGap:false });
+  const next = EE702_SLOTS[i+1];
+  if(next && next.start > s.end) {
+    EE702_CAL_ROWS.push({ start:s.end, end:next.start, isGap:true, label:'午休' });
+  }
+});
 
 const SPACES = [
-  { id:'ee702',      name:'EE702',      openDays:[0,1,2,3,4,5,6], openHour:8,  closeHour:22, note:'全週 08–22' },
-  { id:'testroom',   name:'測驗室',     openDays:[1,2,3,4,5],     openHour:8,  closeHour:16, note:'平日 08–16' },
-  { id:'officeroom', name:'系辦會議室', openDays:[1,2,3,4,5],     openHour:8,  closeHour:16, note:'平日 08–16' },
+  { id:'ee702',      name:'EE702',      openDays:[0,1,2,3,4,5,6], openMin:490,  closeMin:1260, slotBased:true,  note:'全週 08:10–21:00' },
+  { id:'testroom',   name:'測驗室',     openDays:[1,2,3,4,5],     openMin:480,  closeMin:1260, slotBased:false, note:'平日 08–21' },
+  { id:'officeroom', name:'系辦會議室', openDays:[1,2,3,4,5],     openMin:480,  closeMin:1260, slotBased:false, note:'平日 08–21' },
 ];
+
+// ============================================================
+//  時間工具（所有時間以分鐘儲存）
+// ============================================================
+function minToTime(m) {
+  return String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+}
+function isPastMin(ds, startMin) {
+  const h=Math.floor(startMin/60), mi=startMin%60;
+  return new Date(`${ds}T${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}:59`) < new Date();
+}
+function overlaps(aS,aE,bS,bE){ return aS<bE&&aE>bS; }
+function fmtDate(d){ return d.toISOString().slice(0,10); }
+function fmtDisp(d){ return `${d.getMonth()+1}/${d.getDate()}`; }
+const DOW_LABEL=['一','二','三','四','五','六','日'];
+const DOW_CH='日一二三四五六';
+function isToday(d){ return fmtDate(d)===fmtDate(new Date()); }
+function getWeekDates(offset){
+  const t=new Date(), dow=t.getDay();
+  const mon=new Date(t); mon.setDate(t.getDate()-(dow===0?6:dow-1)+offset*7);
+  return Array.from({length:7},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
+}
+function getHourlyRows(sp) {
+  const rows=[];
+  for(let m=sp.openMin; m<sp.closeMin; m+=60) rows.push({start:m, end:m+60, isGap:false});
+  return rows;
+}
+function getCalRows(sp) { return sp.slotBased ? EE702_CAL_ROWS : getHourlyRows(sp); }
+
+function isBlockedMin(blocked,ds,sMin,eMin){
+  return blocked.some(b=>{
+    if(ds<b.date_from||ds>b.date_to) return false;
+    if(b.start_hour===null||b.start_hour==='') return true;
+    return overlaps(sMin,eMin,b.start_hour,b.end_hour);
+  });
+}
+function blockedLabel(blocked,ds,sMin,eMin){
+  const b=blocked.find(bl=>{
+    if(ds<bl.date_from||ds>bl.date_to) return false;
+    if(bl.start_hour===null||bl.start_hour==='') return true;
+    return overlaps(sMin,eMin,bl.start_hour,bl.end_hour);
+  });
+  return b?(b.reason||'不開放'):'';
+}
+function isScheduledMin(scheds,ds,sMin,eMin,dow){
+  return scheds.some(s=>s.day_of_week===dow&&ds>=s.date_from&&ds<=s.date_to&&overlaps(sMin,eMin,s.start_hour,s.end_hour));
+}
+function schedLabel(scheds,ds,sMin,eMin,dow){
+  const s=scheds.find(sc=>sc.day_of_week===dow&&ds>=sc.date_from&&ds<=sc.date_to&&overlaps(sMin,eMin,sc.start_hour,sc.end_hour));
+  return s?s.course_name:'';
+}
+function spaceName(id){
+  if(id==='all') return '全部空間';
+  const s=SPACES.find(x=>x.id===id); return s?s.name:id;
+}
+
+// Build all meaningful time points for admin selectors
+function buildTimePts(spaceId) {
+  const pts=new Set();
+  // All slot boundaries for EE702
+  EE702_SLOTS.forEach(s=>{pts.add(s.start);pts.add(s.end);});
+  // Hourly 00:00–24:00
+  for(let h=0;h<=24;h++) pts.add(h*60);
+  const sp = SPACES.find(s=>s.id===spaceId);
+  return [...pts].sort((a,b)=>a-b).filter(m => !sp || (m>=sp.openMin && m<=sp.closeMin));
+}
 
 // ============================================================
 //  Supabase
 // ============================================================
 let db;
-async function initSupabase() {
-  try {
-    db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const { error } = await db.from('bookings').select('id').limit(1);
-    if (error) throw error;
+async function initSupabase(){
+  try{
+    db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const{error}=await db.from('bookings').select('id').limit(1);
+    if(error)throw error;
     document.getElementById('loading-screen').classList.add('hide');
     return true;
-  } catch(e) {
-    console.error("Supabase 連線錯誤細節：", e); // 👉 加入這行來抓蟲
+  }catch(e){
     document.getElementById('loading-screen').classList.add('hide');
     document.getElementById('error-banner').classList.add('show');
     return false;
   }
 }
 
-// ============================================================
-//  資料存取
-// ============================================================
-async function fetchBookings(df, dt, spaceId) {
-  const { data, error } = await db.from('bookings').select('*')
-    .gte('date',df).lte('date',dt).eq('space_id',spaceId)
-    .order('date').order('start_hour');
-  return error ? [] : data;
+async function fetchBookings(df,dt,spaceId){
+  const{data,error}=await db.from('bookings').select('*').gte('date',df).lte('date',dt).eq('space_id',spaceId).order('date').order('start_hour');
+  return error?[]:data;
 }
-async function fetchBlocked(df, dt, spaceId) {
-  const { data, error } = await db.from('blocked_slots').select('*')
-    .lte('date_from',dt).gte('date_to',df);
-  if (error) return [];
-  return data.filter(b => b.space_id==='all' || b.space_id===spaceId);
+async function fetchBlocked(df,dt,spaceId){
+  const{data,error}=await db.from('blocked_slots').select('*').lte('date_from',dt).gte('date_to',df);
+  if(error)return[];
+  return data.filter(b=>b.space_id==='all'||b.space_id===spaceId);
 }
-async function fetchSchedules(df, dt, spaceId) {
-  const { data, error } = await db.from('schedules').select('*')
-    .lte('date_from',dt).gte('date_to',df).eq('space_id',spaceId);
-  return error ? [] : data;
+async function fetchSchedules(df,dt,spaceId){
+  const{data,error}=await db.from('schedules').select('*').lte('date_from',dt).gte('date_to',df).eq('space_id',spaceId);
+  return error?[]:data;
 }
-async function insertBooking(obj) {
-  const { data, error } = await db.from('bookings').insert([obj]).select();
-  if (error) throw error;
+async function insertBooking(obj){
+  const{data,error}=await db.from('bookings').insert([obj]).select();
+  if(error)throw error;
   return data[0];
 }
-async function deleteBookingById(id) {
-  const { error } = await db.from('bookings').delete().eq('id',id);
-  if (error) throw error;
-}
-async function approveBookingById(id) {
-  const { error } = await db.from('bookings').update({status:'approved'}).eq('id',id);
-  if (error) throw error;
-}
-async function insertBlocked(obj) {
-  const { data, error } = await db.from('blocked_slots').insert([obj]).select();
-  if (error) throw error;
-  return data[0];
-}
-async function deleteBlockedById(id) {
-  const { error } = await db.from('blocked_slots').delete().eq('id',id);
-  if (error) throw error;
-}
-async function insertSchedule(obj) {
-  const { data, error } = await db.from('schedules').insert([obj]).select();
-  if (error) throw error;
-  return data[0];
-}
-async function deleteScheduleById(id) {
-  const { error } = await db.from('schedules').delete().eq('id',id);
-  if (error) throw error;
-}
-async function fetchAllBookings() {
-  const { data, error } = await db.from('bookings').select('*')
-    .order('date',{ascending:false}).order('start_hour',{ascending:false});
-  return error ? [] : data;
-}
-async function fetchAllBlocked() {
-  const { data, error } = await db.from('blocked_slots').select('*')
-    .order('date_from').order('start_hour');
-  return error ? [] : data;
-}
-async function fetchAllSchedules() {
-  const { data, error } = await db.from('schedules').select('*')
-    .order('space_id').order('day_of_week').order('start_hour');
-  return error ? [] : data;
-}
-async function fetchPendingCount() {
-  const { count, error } = await db.from('bookings').select('*',{count:'exact',head:true}).eq('status','pending');
-  return error ? 0 : count;
-}
-
-// ============================================================
-//  工具
-// ============================================================
-function overlaps(aS,aE,bS,bE){return aS<bE&&aE>bS;}
-function fmtDate(d){return d.toISOString().slice(0,10);}
-function fmtDisp(d){return `${d.getMonth()+1}/${d.getDate()}`;}
-const DOW_LABEL=['一','二','三','四','五','六','日'];
-const DOW_CH='日一二三四五六';
-function isToday(d){return fmtDate(d)===fmtDate(new Date());}
-function isPast(ds,h){return new Date(ds+'T'+String(h).padStart(2,'0')+':59:00')<new Date();}
-function getWeekDates(offset){
-  const t=new Date(),dow=t.getDay();
-  const mon=new Date(t);mon.setDate(t.getDate()-(dow===0?6:dow-1)+offset*7);
-  return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});
-}
-function isBlocked(blocked,ds,h){
-  return blocked.some(b=>{
-    if(ds<b.date_from||ds>b.date_to)return false;
-    if(b.start_hour===null||b.start_hour==='')return true;
-    return b.start_hour<=h&&b.end_hour>h;
-  });
-}
-function blockedLabel(blocked,ds,h){
-  const b=blocked.find(bl=>{
-    if(ds<bl.date_from||ds>bl.date_to)return false;
-    if(bl.start_hour===null||bl.start_hour==='')return true;
-    return bl.start_hour<=h&&bl.end_hour>h;
-  });
-  return b?(b.reason||'不開放'):'';
-}
-function isScheduled(scheds,ds,h){
-  const dow=new Date(ds).getDay();
-  return scheds.some(s=>s.day_of_week===dow&&ds>=s.date_from&&ds<=s.date_to&&s.start_hour<=h&&s.end_hour>h);
-}
-function scheduledLabel(scheds,ds,h){
-  const dow=new Date(ds).getDay();
-  const s=scheds.find(sc=>sc.day_of_week===dow&&ds>=sc.date_from&&ds<=sc.date_to&&sc.start_hour<=h&&sc.end_hour>h);
-  return s?s.course_name:'';
-}
-function spaceName(id){
-  if(id==='all')return '全部空間';
-  const s=SPACES.find(x=>x.id===id);return s?s.name:id;
-}
+async function deleteBookingById(id){const{error}=await db.from('bookings').delete().eq('id',id);if(error)throw error;}
+async function approveBookingById(id){const{error}=await db.from('bookings').update({status:'approved'}).eq('id',id);if(error)throw error;}
+async function insertBlocked(obj){const{data,error}=await db.from('blocked_slots').insert([obj]).select();if(error)throw error;return data[0];}
+async function deleteBlockedById(id){const{error}=await db.from('blocked_slots').delete().eq('id',id);if(error)throw error;}
+async function insertSchedule(obj){const{data,error}=await db.from('schedules').insert([obj]).select();if(error)throw error;return data[0];}
+async function deleteScheduleById(id){const{error}=await db.from('schedules').delete().eq('id',id);if(error)throw error;}
+async function fetchAllBookings(){const{data,error}=await db.from('bookings').select('*').order('date',{ascending:false}).order('start_hour',{ascending:false});return error?[]:data;}
+async function fetchAllBlocked(){const{data,error}=await db.from('blocked_slots').select('*').order('date_from').order('start_hour');return error?[]:data;}
+async function fetchAllSchedules(){const{data,error}=await db.from('schedules').select('*').order('space_id').order('day_of_week').order('start_hour');return error?[]:data;}
+async function fetchPendingCount(){const{count,error}=await db.from('bookings').select('*',{count:'exact',head:true}).eq('status','pending');return error?0:count;}
 
 // ============================================================
 //  State
@@ -588,91 +585,112 @@ async function renderCalendar(){
   document.getElementById('week-title').innerHTML=
     `${first.getFullYear()} 年 ${first.getMonth()+1} 月 <small>${fmtDisp(first)} – ${fmtDisp(last)}</small>`;
 
-  const colTpl='56px repeat(7,1fr)';
-  document.getElementById('cal-header').style.gridTemplateColumns=colTpl;
-  document.getElementById('cal-body').style.gridTemplateColumns=colTpl;
+  const colTpl='72px repeat(7,1fr)'; // wider time label for EE702
+  ['cal-header','cal-body'].forEach(id=>{document.getElementById(id).style.gridTemplateColumns=colTpl;});
 
   // Skeleton
-  let skH='<div class="cal-header-cell"></div>'+dates.map((_,i)=>`<div class="cal-header-cell"><span class="dow">週${DOW_LABEL[i]}</span><span class="date-num">·</span></div>`).join('');
-  document.getElementById('cal-header').innerHTML=skH;
-  let skB='<div class="time-col">';
-  for(let h=sp.openHour;h<sp.closeHour;h++) skB+=`<div class="time-label">${String(h).padStart(2,'0')}:00</div>`;
-  skB+='</div>';
-  for(let i=0;i<7;i++){skB+='<div class="day-col">';for(let h=sp.openHour;h<sp.closeHour;h++)skB+='<div class="slot loading-slot"></div>';skB+='</div>';}
+  document.getElementById('cal-header').innerHTML='<div class="cal-header-cell"></div>'+
+    dates.map((_,i)=>`<div class="cal-header-cell"><span class="dow">週${DOW_LABEL[i]}</span><span class="date-num">·</span></div>`).join('');
+  const rows=getCalRows(sp);
+  let skB='<div class="time-col">'+rows.map(r=>r.isGap?`<div class="time-label gap-row"></div>`:`<div class="time-label"></div>`).join('')+'</div>';
+  for(let i=0;i<7;i++){skB+='<div class="day-col">'+rows.map(r=>r.isGap?'<div class="slot gap-slot"></div>':'<div class="slot loading-slot"></div>').join('')+'</div>';}
   document.getElementById('cal-body').innerHTML=skB;
 
   const df=fmtDate(first),dt=fmtDate(last);
-  const [bookings,blocked,scheds]=await Promise.all([
-    fetchBookings(df,dt,sp.id),
-    fetchBlocked(df,dt,sp.id),
-    fetchSchedules(df,dt,sp.id)
-  ]);
+  const[bookings,blocked,scheds]=await Promise.all([fetchBookings(df,dt,sp.id),fetchBlocked(df,dt,sp.id),fetchSchedules(df,dt,sp.id)]);
   cached={bookings,blocked,scheds};
 
   // Header
-  document.getElementById('cal-header').innerHTML=
-    '<div class="cal-header-cell"></div>'+
+  document.getElementById('cal-header').innerHTML='<div class="cal-header-cell"></div>'+
     dates.map((d,i)=>{
       const open=sp.openDays.includes(d.getDay());
       return `<div class="cal-header-cell${isToday(d)?' today':''}${!open?' closed-day':''}">
-        <span class="dow">週${DOW_LABEL[i]}</span>
-        <span class="date-num">${d.getDate()}</span>
-      </div>`;
+        <span class="dow">週${DOW_LABEL[i]}</span><span class="date-num">${d.getDate()}</span></div>`;
     }).join('');
 
-  const rows=sp.closeHour-sp.openHour;
-  let html='<div class="time-col">';
-  for(let h=sp.openHour;h<sp.closeHour;h++) html+=`<div class="time-label">${String(h).padStart(2,'0')}:00</div>`;
-  html+='</div>';
+  // Body time labels
+  const totalH = rows.reduce((sum,r)=>sum+(r.isGap?20:44),0);
+  let tlHtml='<div class="time-col">';
+  rows.forEach(r=>{
+    if(r.isGap){
+      tlHtml+=`<div class="time-label gap-row"><span class="tl-time">午休</span></div>`;
+    } else if(sp.slotBased){
+      tlHtml+=`<div class="time-label"><span class="tl-slot">第${r.id}節</span><span class="tl-time">${minToTime(r.start)}</span></div>`;
+    } else {
+      tlHtml+=`<div class="time-label"><span class="tl-slot">${minToTime(r.start)}</span></div>`;
+    }
+  });
+  tlHtml+='</div>';
 
+  let bodyHtml=tlHtml;
   dates.forEach(d=>{
     const ds=fmtDate(d);
-    if(!sp.openDays.includes(d.getDay())){
-      html+=`<div class="closed-col" style="height:${rows*44}px"><div class="closed-col-text">非開放日</div></div>`;
+    const dow=d.getDay();
+    if(!sp.openDays.includes(dow)){
+      bodyHtml+=`<div class="closed-col" style="height:${totalH}px"><div class="closed-col-text">非開放日</div></div>`;
       return;
     }
     const tc=isToday(d)?' today-col':'';
-    html+=`<div class="day-col">`;
-    for(let h=sp.openHour;h<sp.closeHour;h++){
-      const past=isPast(ds,h);
-      const blk=isBlocked(blocked,ds,h);
-      const sched=isScheduled(scheds,ds,h);
-      const bk=bookings.find(b=>b.date===ds&&b.start_hour<=h&&b.end_hour>h);
+    bodyHtml+=`<div class="day-col">`;
+    rows.forEach((row,ri)=>{
+      if(row.isGap){ bodyHtml+=`<div class="slot gap-slot"></div>`; return; }
+      const past=isPastMin(ds,row.start);
+      const blk=isBlockedMin(blocked,ds,row.start,row.end);
+      const sched=isScheduledMin(scheds,ds,row.start,row.end,dow);
+      const bk=bookings.find(b=>overlaps(row.start,row.end,b.start_hour,b.end_hour));
+      const isFirst=bk?bk.start_hour>=row.start&&bk.start_hour<row.end:false;
+
       let cls='slot available'+tc, inner='';
 
-      if(past){
-        cls='slot past'+tc;
-      } else if(blk){
+      if(past){ cls='slot past'+tc; }
+      else if(blk){
         cls='slot blocked'+tc;
-        const prevBlk=h>sp.openHour&&isBlocked(blocked,ds,h-1);
-        if(!prevBlk) inner=`<div class="blocked-bar"><span>${blockedLabel(blocked,ds,h)}</span></div>`;
-      } else if(sched){
+        // Show label only on first blocked slot of consecutive run
+        const prevBlk=ri>0&&!rows[ri-1].isGap&&isBlockedMin(blocked,ds,rows[ri-1].start,rows[ri-1].end);
+        if(!prevBlk){
+          // calculate bar height spanning consecutive blocked slots
+          let span=0;
+          for(let k=ri;k<rows.length&&!rows[k].isGap&&isBlockedMin(blocked,ds,rows[k].start,rows[k].end);k++) span++;
+          const bh=span*44+(span-1)*1-2;
+          inner=`<div class="blocked-bar" style="height:${bh}px"><span>${blockedLabel(blocked,ds,row.start,row.end)}</span></div>`;
+        }
+      }
+      else if(sched){
         cls='slot scheduled'+tc;
-        const prevSched=h>sp.openHour&&isScheduled(scheds,ds,h-1);
-        if(!prevSched) inner=`<div class="scheduled-bar"><span class="bar-name">${scheduledLabel(scheds,ds,h)}</span><span class="bar-sub">課表</span></div>`;
-      } else if(bk){
-        if(bk.status==='pending'){
-          cls='slot pending'+tc;
-          if(bk.start_hour===h) inner=`<div class="pending-bar"><span class="bar-name">待審核</span></div>`;
-        } else if(bk.is_admin){
-          cls='slot booked-admin'+tc;
-          if(bk.start_hour===h) inner=`<div class="booking-bar admin-bar"><span class="bar-name">${bk.user_name}</span><span class="bar-sub">${bk.purpose}</span></div>`;
-        } else {
-          cls='slot booked'+tc;
-          if(bk.start_hour===h) inner=`<div class="booking-bar"><span class="bar-name">${bk.user_name}</span><span class="bar-sub">${bk.purpose}</span></div>`;
+        const prevSched=ri>0&&!rows[ri-1].isGap&&isScheduledMin(scheds,ds,rows[ri-1].start,rows[ri-1].end,dow);
+        if(!prevSched){
+          let span=0;
+          for(let k=ri;k<rows.length&&!rows[k].isGap&&isScheduledMin(scheds,ds,rows[k].start,rows[k].end,dow);k++) span++;
+          const bh=span*44+(span-1)*1-2;
+          inner=`<div class="scheduled-bar" style="height:${bh}px"><span class="bar-name">${schedLabel(scheds,ds,row.start,row.end,dow)}</span><span class="bar-sub">課表</span></div>`;
+        }
+      }
+      else if(bk){
+        const statusCls=bk.status==='pending'?'pending':(bk.is_admin?'booked-admin':'booked');
+        cls=`slot ${statusCls}${tc}`;
+        if(isFirst){
+          // Calculate span across rows
+          let span=0;
+          for(let k=ri;k<rows.length&&!rows[k].isGap&&overlaps(rows[k].start,rows[k].end,bk.start_hour,bk.end_hour);k++) span++;
+          const bh=span*44+(span-1)*1-2;
+          if(bk.status==='pending'){
+            inner=`<div class="pending-bar" style="height:${bh}px"><span class="bar-name">待審核</span></div>`;
+          } else {
+            inner=`<div class="booking-bar${bk.is_admin?' admin-bar':''}" style="height:${bh}px"><span class="bar-name">${bk.user_name}</span><span class="bar-sub">${bk.purpose}</span></div>`;
+          }
         }
       }
 
       const clickable=!past&&!blk&&!sched&&!bk;
-      html+=`<div class="${cls}"${clickable?` onclick="openModal('${ds}',${h})"`:''}>` +inner+ '</div>';
-    }
-    html+='</div>';
+      bodyHtml+=`<div class="${cls}"${clickable?` onclick="openModal('${ds}',${row.start})"`:''}>` +inner+ '</div>';
+    });
+    bodyHtml+='</div>';
   });
-  document.getElementById('cal-body').innerHTML=html;
+  document.getElementById('cal-body').innerHTML=bodyHtml;
 }
 
-function changeWeek(d){weekOffset+=d;renderCalendar();}
-function goToday(){weekOffset=0;renderCalendar();}
+function changeWeek(d){ weekOffset+=d; renderCalendar(); }
+function goToday(){ weekOffset=0; renderCalendar(); }
 
 // ============================================================
 //  Pending Badge
@@ -681,20 +699,15 @@ async function refreshPendingBadge(){
   const cnt=await fetchPendingCount();
   const b1=document.getElementById('pending-badge');
   const b2=document.getElementById('pending-count-badge');
-  if(cnt>0){
-    b1.textContent=cnt; b1.style.display='inline-block';
-    if(b2){b2.textContent=cnt;}
-  } else {
-    b1.style.display='none';
-    if(b2){b2.textContent='0';}
-  }
+  b1.textContent=cnt; b1.style.display=cnt>0?'inline-block':'none';
+  if(b2) b2.textContent=cnt;
 }
 
 // ============================================================
 //  Booking Modal
 // ============================================================
-function openModal(ds,startH){
-  pendingSlot={ds}; selStart=startH; selEnd=null;
+function openModal(ds, startMin){
+  pendingSlot={ds}; selStart=startMin; selEnd=null;
   const d=new Date(ds);
   document.getElementById('modal-title').textContent=`預約 ${ds} 週${DOW_CH[d.getDay()]}`;
   drawForm();
@@ -704,32 +717,83 @@ function openModal(ds,startH){
 function drawForm(){
   const sp=SPACES[spaceIdx];
   const ds=pendingSlot.ds;
+  const dow=new Date(ds).getDay();
 
-  // Start chips
-  let sg=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">選擇開始時間</div><div class="time-grid">`;
-  for(let h=sp.openHour;h<sp.closeHour;h++){
-    const dis=cached.bookings.some(b=>b.date===ds&&b.start_hour<=h&&b.end_hour>h)||
-              isBlocked(cached.blocked,ds,h)||isScheduled(cached.scheds,ds,h)||isPast(ds,h);
-    const sel=h===selStart;
-    sg+=`<div class="time-chip${dis?' disabled':sel?' selected':''}"${!dis?` onclick="setStart(${h})"`:''}>` +String(h).padStart(2,'0')+':00</div>';
-  }
-  sg+='</div>';
-
-  // End chips
-  let eg='';
-  if(selStart!==null){
-    eg=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin:14px 0 6px">選擇結束時間</div><div class="time-grid">`;
-    for(let h=selStart+1;h<=sp.closeHour;h++){
-      const dis=cached.bookings.some(b=>b.date===ds&&overlaps(selStart,h,b.start_hour,b.end_hour))||
-                Array.from({length:h-selStart},(_,i)=>selStart+i).some(hh=>isBlocked(cached.blocked,ds,hh)||isScheduled(cached.scheds,ds,hh));
-      const sel=h===selEnd;
-      eg+=`<div class="time-chip${dis?' disabled':sel?' selected':''}"${!dis?` onclick="setEnd(${h})"`:''}>` +String(h).padStart(2,'0')+':00</div>';
+  let picker='';
+  if(sp.slotBased){
+    // EE702: slot chips
+    if(selStart===null){
+      picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">選擇開始節次</div><div class="slot-grid">`;
+      EE702_SLOTS.forEach(slot=>{
+        const dis=isPastMin(ds,slot.start)||isBlockedMin(cached.blocked,ds,slot.start,slot.end)||
+                  isScheduledMin(cached.scheds,ds,slot.start,slot.end,dow)||
+                  cached.bookings.some(b=>overlaps(slot.start,slot.end,b.start_hour,b.end_hour));
+        picker+=`<div class="slot-chip${dis?' disabled':''}"${!dis?` onclick="setStart(${slot.start})"`:''}>`+
+          `<div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`;
+      });
+      picker+='</div>';
+    } else {
+      // Show selected start + end picker
+      const startSlot=EE702_SLOTS.find(s=>s.start===selStart);
+      picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">
+        選擇結束節次 <span style="font-weight:400;color:var(--text-3)">（起：第${startSlot?.id}節 ${minToTime(selStart)}，點選同一節可取消）</span>
+      </div><div class="slot-grid">`;
+      EE702_SLOTS.forEach(slot=>{
+        if(slot.start<selStart){ picker+=`<div class="slot-chip disabled"><div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`; return; }
+        // reset if clicking start again
+        if(slot.start===selStart){
+          picker+=`<div class="slot-chip selected" onclick="setStart(null)"><div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`; return;
+        }
+        const inRange=selEnd!==null&&slot.end<=selEnd;
+        const isSelEnd=slot.end===selEnd;
+        const dis=overlaps(selStart,slot.end,...(()=>{
+          // Check if range [selStart, slot.end] has any conflict
+          const conflict=cached.bookings.some(b=>overlaps(selStart,slot.end,b.start_hour,b.end_hour));
+          const blk=isBlockedMin(cached.blocked,ds,selStart,slot.end);
+          const sched=isScheduledMin(cached.scheds,ds,selStart,slot.end,dow);
+          return [0,conflict||blk||sched?1:0]; // trick: if conflict, make aS>=aE so overlaps=false, use separate check
+        })())&&false; // always false, use manual check below
+        const hasConflict=cached.bookings.some(b=>overlaps(selStart,slot.end,b.start_hour,b.end_hour))||
+                          isBlockedMin(cached.blocked,ds,selStart,slot.end)||
+                          isScheduledMin(cached.scheds,ds,selStart,slot.end,dow);
+        const chipCls=hasConflict?'disabled':(isSelEnd?'selected':inRange?'in-range':'');
+        picker+=`<div class="slot-chip${chipCls?' '+chipCls:''}"${!hasConflict?` onclick="setEnd(${slot.end})"`:''}>
+          <div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`;
+      });
+      picker+='</div>';
     }
-    eg+='</div>';
+  } else {
+    // Hourly rooms: time chips
+    const rows=getHourlyRows(sp);
+    picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">選擇開始時間</div><div class="time-grid">`;
+    rows.forEach(row=>{
+      const dis=isPastMin(ds,row.start)||isBlockedMin(cached.blocked,ds,row.start,row.end)||
+                isScheduledMin(cached.scheds,ds,row.start,row.end,dow)||
+                cached.bookings.some(b=>overlaps(row.start,row.end,b.start_hour,b.end_hour));
+      const sel=row.start===selStart;
+      picker+=`<div class="time-chip${dis?' disabled':sel?' selected':''}"${!dis?` onclick="setStart(${row.start})"`:''}>` +minToTime(row.start)+'</div>';
+    });
+    picker+='</div>';
+    if(selStart!==null){
+      picker+=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin:14px 0 6px">選擇結束時間</div><div class="time-grid">`;
+      for(let m=selStart+60;m<=sp.closeMin;m+=60){
+        const hasConflict=cached.bookings.some(b=>overlaps(selStart,m,b.start_hour,b.end_hour))||
+                          isBlockedMin(cached.blocked,ds,selStart,m)||
+                          isScheduledMin(cached.scheds,ds,selStart,m,dow);
+        const sel=m===selEnd;
+        picker+=`<div class="time-chip${hasConflict?' disabled':sel?' selected':''}"${!hasConflict?` onclick="setEnd(${m})"`:''}>` +minToTime(m)+'</div>';
+      }
+      picker+='</div>';
+    }
   }
 
-  // Personal info form
-  const form=selEnd!==null?`
+  // AC notice for EE702
+  const acNotice=sp.slotBased?`<div class="alert alert-warning" style="margin-top:12px">
+    ⚠️ <strong>空調注意</strong>：17:00 後沒有中央空調；17:00 前若需要空調請主動洽詢系辦。
+  </div>`:'';
+
+  const canShowForm = sp.slotBased ? (selStart!==null&&selEnd!==null) : (selStart!==null&&selEnd!==null);
+  const form=canShowForm?`
     <div style="height:1px;background:var(--border);margin:16px 0"></div>
     <div class="field"><label>您的姓名 *</label><input type="text" id="f-name" placeholder="王小明"/></div>
     <div class="field-row">
@@ -737,20 +801,19 @@ function drawForm(){
       <div class="field"><label>Gmail *</label><input type="email" id="f-email" placeholder="xxx@gmail.com"/></div>
     </div>
     <div class="field"><label>使用事由 *</label><textarea id="f-purpose" placeholder="例：論文討論、組會、自習..."></textarea></div>
-    <div class="alert alert-pending" style="margin-bottom:0">📋 送出後需等待系辦審核，審核通過後預約才算完成。</div>
+    <div class="alert alert-pending" style="margin-bottom:0">📋 送出後需等待系辦審核，核准後才算完成預約。</div>
   `:'';
 
   document.getElementById('modal-body').innerHTML=
-    `<div class="field-info">📍 ${SPACES[spaceIdx].name}&emsp;📅 ${ds}</div>${sg}${eg}${form}<div id="book-alert" style="margin-top:10px"></div>`;
+    `<div class="field-info">📍 ${sp.name}&emsp;📅 ${ds}</div>${acNotice}${picker}${form}<div id="book-alert" style="margin-top:10px"></div>`;
 
-  document.getElementById('modal-footer').innerHTML=selEnd!==null
-    ?`<button class="btn" onclick="closeModal()">取消</button>
-      <button class="btn btn-primary" id="btn-submit" onclick="submitBooking()">送出預約申請</button>`
+  document.getElementById('modal-footer').innerHTML=canShowForm
+    ?`<button class="btn" onclick="closeModal()">取消</button><button class="btn btn-primary" id="btn-submit" onclick="submitBooking()">送出預約申請</button>`
     :`<button class="btn" onclick="closeModal()">取消</button>`;
 }
 
-function setStart(h){selStart=h;selEnd=null;drawForm();}
-function setEnd(h){selEnd=h;drawForm();}
+function setStart(m){ selStart=m; selEnd=null; drawForm(); }
+function setEnd(m){ selEnd=m; drawForm(); }
 
 async function submitBooking(){
   const name   =document.getElementById('f-name')?.value.trim();
@@ -759,29 +822,20 @@ async function submitBooking(){
   const purpose=document.getElementById('f-purpose')?.value.trim();
   const alertEl=document.getElementById('book-alert');
   const btn    =document.getElementById('btn-submit');
-
   if(!name||!phone||!email||!purpose){alertEl.innerHTML='<div class="alert alert-danger">請填寫所有必填欄位。</div>';return;}
   if(!email.includes('@')){alertEl.innerHTML='<div class="alert alert-danger">請輸入有效的 Gmail。</div>';return;}
   if(!/^[0-9+\-\s]{7,15}$/.test(phone)){alertEl.innerHTML='<div class="alert alert-danger">請輸入有效的電話號碼。</div>';return;}
-
   btn.disabled=true;btn.textContent='送出中...';
   const sp=SPACES[spaceIdx];
   const ds=pendingSlot.ds;
-
-  // Re-check conflict
   const latest=await fetchBookings(ds,ds,sp.id);
   if(latest.some(b=>overlaps(selStart,selEnd,b.start_hour,b.end_hour))){
     alertEl.innerHTML='<div class="alert alert-danger">此時段剛被他人申請，請重新選擇。</div>';
     btn.disabled=false;btn.textContent='送出預約申請';return;
   }
-
   try{
-    const bk=await insertBooking({
-      space_id:sp.id, date:ds, start_hour:selStart, end_hour:selEnd,
-      user_name:name, user_phone:phone, user_email:email, purpose,
-      is_admin:false, status:'pending'
-    });
-    showConfirm({...bk, spaceName:sp.name});
+    const bk=await insertBooking({space_id:sp.id,date:ds,start_hour:selStart,end_hour:selEnd,user_name:name,user_phone:phone,user_email:email,purpose,is_admin:false,status:'pending'});
+    showConfirm({...bk,spaceName:sp.name});
     await renderCalendar();
     await refreshPendingBadge();
   }catch(e){
@@ -793,23 +847,18 @@ async function submitBooking(){
 function showConfirm(b){
   document.getElementById('modal-title').textContent='申請送出！';
   document.getElementById('modal-body').innerHTML=`
-    <div class="confirm-card pending">
-      <h3>⏳ 預約申請已送出，請等待審核</h3>
+    <div class="confirm-card pending"><h3>⏳ 預約申請已送出，請等待審核</h3>
       <div class="confirm-row"><span class="confirm-label">地點</span><span class="confirm-value">${b.spaceName||b.space_id}</span></div>
       <div class="confirm-row"><span class="confirm-label">日期</span><span class="confirm-value">${b.date}</span></div>
-      <div class="confirm-row"><span class="confirm-label">時間</span><span class="confirm-value">${String(b.start_hour).padStart(2,'0')}:00 – ${String(b.end_hour).padStart(2,'0')}:00</span></div>
+      <div class="confirm-row"><span class="confirm-label">時間</span><span class="confirm-value">${minToTime(b.start_hour)} – ${minToTime(b.end_hour)}</span></div>
       <div class="confirm-row"><span class="confirm-label">姓名</span><span class="confirm-value">${b.user_name}</span></div>
       <div class="confirm-row"><span class="confirm-label">電話</span><span class="confirm-value">${b.user_phone||'—'}</span></div>
       <div class="confirm-row"><span class="confirm-label">事由</span><span class="confirm-value">${b.purpose}</span></div>
     </div>
-    <p style="font-size:13px;color:var(--text-2);text-align:center">日曆上顯示為黃色「待審核」，系辦核准後將轉為藍色。<br>請截圖保存此畫面。</p>`;
+    <p style="font-size:13px;color:var(--text-2);text-align:center">日曆顯示黃色「待審核」，系辦核准後轉為藍色。<br>請截圖保存此畫面。</p>`;
   document.getElementById('modal-footer').innerHTML=`<button class="btn btn-primary" onclick="closeModal()">關閉</button>`;
 }
-
-function closeModal(){
-  document.getElementById('booking-modal').classList.remove('show');
-  pendingSlot=null;selStart=null;selEnd=null;
-}
+function closeModal(){document.getElementById('booking-modal').classList.remove('show');pendingSlot=null;selStart=null;selEnd=null;}
 document.getElementById('booking-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
 // ============================================================
@@ -847,59 +896,43 @@ function adminLogout(){
 }
 
 // ============================================================
-//  Admin UI Setup
+//  Admin UI
 // ============================================================
-function populateAdminUI(){
-  // 封鎖時段時間
-  ['block-start','block-end'].forEach(id=>{
-    const sel=document.getElementById(id);
-    sel.innerHTML='<option value="">整天封鎖</option>';
-    for(let h=0;h<=24;h++) sel.innerHTML+=`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`;
-  });
-  // 課表時間
-  ['sched-start','sched-end'].forEach(id=>{
-    const sel=document.getElementById(id);
-    sel.innerHTML='<option value="">選擇</option>';
-    for(let h=0;h<=24;h++) sel.innerHTML+=`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`;
-  });
-  // 課表空間
-  const spSel=document.getElementById('sched-space');
-  spSel.innerHTML=SPACES.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
-  // 系辦預約空間
-  const abSel=document.getElementById('admin-book-space');
-  abSel.innerHTML=SPACES.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
-  updateAdminTimes();
-
-  const today=fmtDate(new Date());
-  document.getElementById('block-date-from').value=today;
-  document.getElementById('block-date-to').value=today;
-  document.getElementById('admin-book-date').value=today;
+function fillTimeSelect(id, spaceId, blankLabel){
+  const sel=document.getElementById(id);
+  sel.innerHTML=blankLabel?`<option value="">${blankLabel}</option>`:'<option value="">選擇時間</option>';
+  buildTimePts(spaceId).forEach(m=>sel.innerHTML+=`<option value="${m}">${minToTime(m)}</option>`);
 }
-
-function updateAdminTimes(){
-  const sp=SPACES.find(s=>s.id===document.getElementById('admin-book-space').value)||SPACES[0];
-  ['admin-book-start','admin-book-end'].forEach(id=>{
-    const sel=document.getElementById(id);
-    sel.innerHTML='<option value="">選擇時間</option>';
-    for(let h=sp.openHour;h<=sp.closeHour;h++)
-      sel.innerHTML+=`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`;
+function populateAdminUI(){
+  fillTimeSelect('block-start',null,'整天封鎖');
+  fillTimeSelect('block-end',null,'整天封鎖');
+  document.getElementById('sched-space').innerHTML=SPACES.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+  document.getElementById('admin-book-space').innerHTML=SPACES.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+  updateSchedTimes(); updateAdminTimes();
+  const today=fmtDate(new Date());
+  ['block-date-from','block-date-to','admin-book-date','sched-date-from','sched-date-to'].forEach(id=>{
+    if(document.getElementById(id)) document.getElementById(id).value=today;
   });
+}
+function updateSchedTimes(){
+  const spaceId=document.getElementById('sched-space').value;
+  fillTimeSelect('sched-start',spaceId);
+  fillTimeSelect('sched-end',spaceId);
+}
+function updateAdminTimes(){
+  const spaceId=document.getElementById('admin-book-space').value;
+  fillTimeSelect('admin-book-start',spaceId);
+  fillTimeSelect('admin-book-end',spaceId);
 }
 
 // ============================================================
 //  Admin Render
 // ============================================================
 async function renderAdminPanel(){
-  await Promise.all([
-    renderPendingList(),
-    renderScheduleList(),
-    renderBlockedList(),
-    renderAllBookings(),
-  ]);
+  await Promise.all([renderPendingList(),renderScheduleList(),renderBlockedList(),renderAllBookings()]);
   await refreshPendingBadge();
 }
 
-// 待審核
 async function renderPendingList(){
   const all=await fetchAllBookings();
   const pending=all.filter(b=>b.status==='pending');
@@ -908,17 +941,10 @@ async function renderPendingList(){
   el.innerHTML=pending.map(b=>`
     <div class="booking-row">
       <div class="booking-row-info">
-        <div class="booking-row-name">
-          <span class="tag tag-space">${spaceName(b.space_id)}</span>
-          ${b.user_name}
+        <div class="booking-row-name"><span class="tag tag-space">${spaceName(b.space_id)}</span>${b.user_name}
           <span style="font-size:12px;color:var(--text-2);font-weight:400">&lt;${b.user_email}&gt;</span>
         </div>
-        <div class="booking-row-meta">
-          📅 ${b.date}&emsp;
-          ⏰ ${String(b.start_hour).padStart(2,'0')}:00–${String(b.end_hour).padStart(2,'0')}:00&emsp;
-          📞 ${b.user_phone||'—'}&emsp;
-          📝 ${b.purpose}
-        </div>
+        <div class="booking-row-meta">📅 ${b.date}&emsp;⏰ ${minToTime(b.start_hour)}–${minToTime(b.end_hour)}&emsp;📞 ${b.user_phone||'—'}&emsp;📝 ${b.purpose}</div>
       </div>
       <div class="booking-row-actions">
         <button class="btn btn-success btn-sm" onclick="approveBooking('${b.id}')">✓ 核准</button>
@@ -926,65 +952,37 @@ async function renderPendingList(){
       </div>
     </div>`).join('');
 }
+async function approveBooking(id){if(!confirm('確定核准此預約？'))return;await approveBookingById(id);await renderAdminPanel();await renderCalendar();}
+async function rejectBooking(id){if(!confirm('確定拒絕並刪除此預約？'))return;await deleteBookingById(id);await renderAdminPanel();await renderCalendar();}
 
-async function approveBooking(id){
-  if(!confirm('確定核准此預約？'))return;
-  await approveBookingById(id);
-  await renderAdminPanel();
-  await renderCalendar();
-}
-async function rejectBooking(id){
-  if(!confirm('確定拒絕並刪除此預約？'))return;
-  await deleteBookingById(id);
-  await renderAdminPanel();
-  await renderCalendar();
-}
-
-// 課表
-function toggleDow(el){
-  el.classList.toggle('selected');
-}
-function getSelectedDows(){
-  return Array.from(document.querySelectorAll('#sched-dow-group .dow-chip.selected'))
-    .map(el=>parseInt(el.dataset.dow));
-}
+function toggleDow(el){el.classList.toggle('selected');}
+function getSelectedDows(){return[...document.querySelectorAll('#sched-dow-group .dow-chip.selected')].map(el=>parseInt(el.dataset.dow));}
 
 async function addSchedule(){
-  const spaceId =document.getElementById('sched-space').value;
-  const name    =document.getElementById('sched-name').value.trim();
-  const dows    =getSelectedDows();
-  const startH  =parseInt(document.getElementById('sched-start').value);
-  const endH    =parseInt(document.getElementById('sched-end').value);
+  const spaceId=document.getElementById('sched-space').value;
+  const name   =document.getElementById('sched-name').value.trim();
+  const dows   =getSelectedDows();
+  const startH =parseInt(document.getElementById('sched-start').value);
+  const endH   =parseInt(document.getElementById('sched-end').value);
   const dateFrom=document.getElementById('sched-date-from').value;
   const dateTo  =document.getElementById('sched-date-to').value;
   const alertEl =document.getElementById('sched-alert');
   const btn     =document.getElementById('btn-sched');
-
   if(!name){alertEl.innerHTML='<div class="alert alert-danger">請填寫課程名稱。</div>';return;}
   if(!dows.length){alertEl.innerHTML='<div class="alert alert-danger">請選擇至少一個上課星期。</div>';return;}
   if(isNaN(startH)||isNaN(endH)){alertEl.innerHTML='<div class="alert alert-danger">請選擇上課時間。</div>';return;}
   if(endH<=startH){alertEl.innerHTML='<div class="alert alert-danger">結束時間需晚於開始時間。</div>';return;}
-  if(!dateFrom||!dateTo){alertEl.innerHTML='<div class="alert alert-danger">請選擇學期日期範圍。</div>';return;}
-  if(dateTo<dateFrom){alertEl.innerHTML='<div class="alert alert-danger">結束日期不能早於開始日期。</div>';return;}
-
+  if(!dateFrom||!dateTo||dateTo<dateFrom){alertEl.innerHTML='<div class="alert alert-danger">請選擇正確的學期日期範圍。</div>';return;}
   btn.disabled=true;btn.textContent='新增中...';
   try{
-    for(const dow of dows){
-      await insertSchedule({space_id:spaceId,day_of_week:dow,start_hour:startH,end_hour:endH,course_name:name,date_from:dateFrom,date_to:dateTo});
-    }
+    for(const dow of dows) await insertSchedule({space_id:spaceId,day_of_week:dow,start_hour:startH,end_hour:endH,course_name:name,date_from:dateFrom,date_to:dateTo});
     alertEl.innerHTML='<div class="alert alert-success">課表已新增。</div>';
-    // Reset dow chips
     document.querySelectorAll('#sched-dow-group .dow-chip').forEach(el=>el.classList.remove('selected'));
-    await renderScheduleList();
-    await renderCalendar();
+    await renderScheduleList();await renderCalendar();
     setTimeout(()=>alertEl.innerHTML='',3000);
-  }catch(e){
-    alertEl.innerHTML='<div class="alert alert-danger">新增失敗，請稍後再試。</div>';
-    console.error(e);
-  }
+  }catch(e){alertEl.innerHTML='<div class="alert alert-danger">新增失敗，請稍後再試。</div>';console.error(e);}
   btn.disabled=false;btn.textContent='新增課表';
 }
-
 async function renderScheduleList(){
   const scheds=await fetchAllSchedules();
   const el=document.getElementById('sched-list');
@@ -992,45 +990,25 @@ async function renderScheduleList(){
   el.innerHTML=scheds.map(s=>`
     <div class="booking-row">
       <div class="booking-row-info">
-        <div class="booking-row-name">
-          <span class="tag tag-space">${spaceName(s.space_id)}</span>
-          <span class="tag tag-sched">課表</span>
-          ${s.course_name}
-        </div>
-        <div class="booking-row-meta">
-          週${DOW_CH[s.day_of_week]}&emsp;
-          ${String(s.start_hour).padStart(2,'0')}:00–${String(s.end_hour).padStart(2,'0')}:00&emsp;
-          ${s.date_from} ～ ${s.date_to}
-        </div>
+        <div class="booking-row-name"><span class="tag tag-space">${spaceName(s.space_id)}</span><span class="tag tag-sched">課表</span>${s.course_name}</div>
+        <div class="booking-row-meta">週${DOW_CH[s.day_of_week]}&emsp;${minToTime(s.start_hour)}–${minToTime(s.end_hour)}&emsp;${s.date_from} ～ ${s.date_to}</div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteSched('${s.id}')">刪除</button>
     </div>`).join('');
 }
+async function deleteSched(id){if(!confirm('確定要刪除此課表設定？'))return;await deleteScheduleById(id);await renderScheduleList();await renderCalendar();}
 
-async function deleteSched(id){
-  if(!confirm('確定要刪除此課表設定？'))return;
-  await deleteScheduleById(id);
-  await renderScheduleList();
-  await renderCalendar();
-}
-
-// 封鎖時段
 function handleSpaceCheck(cb){
-  const val=cb.value, checked=cb.checked;
+  const val=cb.value,checked=cb.checked;
   cb.closest('.check-label').classList.toggle('checked',checked);
   if(val==='all'&&checked){
-    ['ee702','testroom','officeroom'].forEach(v=>{
-      const c=document.querySelector(`#block-space-group input[value="${v}"]`);
-      if(c){c.checked=false;c.closest('.check-label').classList.remove('checked');}
-    });
+    document.querySelectorAll('#block-space-group input:not([value="all"])').forEach(c=>{c.checked=false;c.closest('.check-label').classList.remove('checked');});
   }else if(val!=='all'&&checked){
     const a=document.querySelector('#block-space-group input[value="all"]');
     if(a){a.checked=false;a.closest('.check-label').classList.remove('checked');}
   }
 }
-function getCheckedSpaces(){
-  return Array.from(document.querySelectorAll('#block-space-group input:checked')).map(c=>c.value);
-}
+function getCheckedSpaces(){return[...document.querySelectorAll('#block-space-group input:checked')].map(c=>c.value);}
 
 async function addBlockedSlot(){
   const dateFrom=document.getElementById('block-date-from').value;
@@ -1041,55 +1019,39 @@ async function addBlockedSlot(){
   const spaces  =getCheckedSpaces();
   const alertEl =document.getElementById('block-alert');
   const btn     =document.getElementById('btn-block');
-
   if(!dateFrom||!dateTo){alertEl.innerHTML='<div class="alert alert-danger">請選擇封鎖日期。</div>';return;}
   if(dateTo<dateFrom){alertEl.innerHTML='<div class="alert alert-danger">結束日期不能早於開始日期。</div>';return;}
   if(!spaces.length){alertEl.innerHTML='<div class="alert alert-danger">請至少選擇一個封鎖空間。</div>';return;}
   if(startV&&endV&&parseInt(endV)<=parseInt(startV)){alertEl.innerHTML='<div class="alert alert-danger">結束時間需晚於開始時間。</div>';return;}
-
   btn.disabled=true;btn.textContent='新增中...';
-  const spaceIds=spaces.includes('all')?['all']:spaces;
+  const ids=spaces.includes('all')?['all']:spaces;
   try{
-    for(const sid of spaceIds){
-      await insertBlocked({space_id:sid,date_from:dateFrom,date_to:dateTo,
-        start_hour:startV?parseInt(startV):null,end_hour:endV?parseInt(endV):null,reason});
-    }
+    for(const sid of ids) await insertBlocked({space_id:sid,date_from:dateFrom,date_to:dateTo,start_hour:startV?parseInt(startV):null,end_hour:endV?parseInt(endV):null,reason});
     alertEl.innerHTML='<div class="alert alert-success">封鎖時段已新增。</div>';
-    await renderBlockedList();
-    await renderCalendar();
+    await renderBlockedList();await renderCalendar();
     setTimeout(()=>alertEl.innerHTML='',3000);
-  }catch(e){
-    alertEl.innerHTML='<div class="alert alert-danger">新增失敗，請稍後再試。</div>';
-  }
+  }catch(e){alertEl.innerHTML='<div class="alert alert-danger">新增失敗，請稍後再試。</div>';}
   btn.disabled=false;btn.textContent='新增封鎖時段';
 }
-
 async function renderBlockedList(){
   const blocked=await fetchAllBlocked();
   const el=document.getElementById('blocked-list');
   if(!blocked.length){el.innerHTML='<div class="empty-state">目前無封鎖設定</div>';return;}
   el.innerHTML=blocked.map(b=>{
-    const timeStr=(b.start_hour!==null&&b.start_hour!=='')
-      ?`${String(b.start_hour).padStart(2,'0')}:00–${String(b.end_hour).padStart(2,'0')}:00`:'整天';
-    const dateStr=b.date_from===b.date_to?b.date_from:`${b.date_from} ～ ${b.date_to}`;
+    const tStr=(b.start_hour!==null&&b.start_hour!=='')
+      ?`${minToTime(b.start_hour)}–${minToTime(b.end_hour)}`:'整天';
+    const dStr=b.date_from===b.date_to?b.date_from:`${b.date_from} ～ ${b.date_to}`;
     return `<div class="booking-row">
       <div class="booking-row-info">
-        <div class="booking-row-name">🚫 ${dateStr}&emsp;${timeStr}</div>
-        <div class="booking-row-meta"><span class="tag ${b.space_id==='all'?'tag-all':'tag-space'}">${spaceName(b.space_id)}</span> ${b.reason||'無說明'}</div>
+        <div class="booking-row-name">🚫 ${dStr}&emsp;${tStr}</div>
+        <div class="booking-row-meta"><span class="tag ${b.space_id==='all'?'tag-all':'tag-space'}">${spaceName(b.space_id)}</span>${b.reason||'無說明'}</div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteBlocked('${b.id}')">刪除</button>
     </div>`;
   }).join('');
 }
+async function deleteBlocked(id){if(!confirm('確定要刪除此封鎖設定？'))return;await deleteBlockedById(id);await renderBlockedList();await renderCalendar();}
 
-async function deleteBlocked(id){
-  if(!confirm('確定要刪除此封鎖設定？'))return;
-  await deleteBlockedById(id);
-  await renderBlockedList();
-  await renderCalendar();
-}
-
-// 系辦直接預約
 async function adminDirectBook(){
   const spaceId=document.getElementById('admin-book-space').value;
   const date   =document.getElementById('admin-book-date').value;
@@ -1098,30 +1060,22 @@ async function adminDirectBook(){
   const purpose=document.getElementById('admin-book-purpose').value.trim()||'系辦預約';
   const alertEl=document.getElementById('admin-book-alert');
   const btn    =document.getElementById('btn-admin-book');
-
   if(!date||isNaN(startH)||isNaN(endH)){alertEl.innerHTML='<div class="alert alert-danger">請填寫完整資訊。</div>';return;}
   if(endH<=startH){alertEl.innerHTML='<div class="alert alert-danger">結束時間需晚於開始時間。</div>';return;}
-
   const latest=await fetchBookings(date,date,spaceId);
   const conflicts=latest.filter(b=>overlaps(startH,endH,b.start_hour,b.end_hour));
   if(conflicts.length&&!confirm(`此時段有 ${conflicts.length} 筆預約將被取消，確定繼續？`))return;
-
   btn.disabled=true;btn.textContent='建立中...';
   try{
     for(const c of conflicts) await deleteBookingById(c.id);
-    await insertBooking({space_id:spaceId,date,start_hour:startH,end_hour:endH,
-      user_name:'系辦',user_phone:'',user_email:'admin@mcu.edu.tw',purpose,is_admin:true,status:'approved'});
-    alertEl.innerHTML=conflicts.length
-      ?`<div class="alert alert-warning">已取消 ${conflicts.length} 筆預約並建立系辦預約。</div>`
-      :'<div class="alert alert-success">系辦預約建立成功。</div>';
-    await renderAdminPanel();
-    await renderCalendar();
+    await insertBooking({space_id:spaceId,date,start_hour:startH,end_hour:endH,user_name:'系辦',user_phone:'',user_email:'admin@mcu.edu.tw',purpose,is_admin:true,status:'approved'});
+    alertEl.innerHTML=conflicts.length?`<div class="alert alert-warning">已取消 ${conflicts.length} 筆預約並建立系辦預約。</div>`:'<div class="alert alert-success">系辦預約建立成功。</div>';
+    await renderAdminPanel();await renderCalendar();
     setTimeout(()=>alertEl.innerHTML='',5000);
   }catch(e){alertEl.innerHTML='<div class="alert alert-danger">建立失敗，請稍後再試。</div>';}
   btn.disabled=false;btn.textContent='建立系辦預約';
 }
 
-// 所有預約
 async function renderAllBookings(){
   const bookings=await fetchAllBookings();
   document.getElementById('booking-count').textContent=bookings.length;
@@ -1134,31 +1088,17 @@ async function renderAllBookings(){
           <span class="tag ${b.status==='pending'?'tag-pending':'tag-approved'}">${b.status==='pending'?'待審核':'已核准'}</span>
           <span class="tag ${b.is_admin?'tag-admin':'tag-student'}">${b.is_admin?'系辦':'學生'}</span>
           <span class="tag tag-space">${spaceName(b.space_id)}</span>
-          ${b.user_name}
-          <span style="font-size:12px;color:var(--text-2);font-weight:400">&lt;${b.user_email}&gt;</span>
+          ${b.user_name} <span style="font-size:12px;color:var(--text-2);font-weight:400">&lt;${b.user_email}&gt;</span>
         </div>
-        <div class="booking-row-meta">
-          📅 ${b.date}&emsp;
-          ⏰ ${String(b.start_hour).padStart(2,'0')}:00–${String(b.end_hour).padStart(2,'0')}:00&emsp;
-          📞 ${b.user_phone||'—'}&emsp;
-          📝 ${b.purpose}
-        </div>
+        <div class="booking-row-meta">📅 ${b.date}&emsp;⏰ ${minToTime(b.start_hour)}–${minToTime(b.end_hour)}&emsp;📞 ${b.user_phone||'—'}&emsp;📝 ${b.purpose}</div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteAdminBooking('${b.id}')">刪除</button>
     </div>`).join('');
 }
-
-async function deleteAdminBooking(id){
-  if(!confirm('確定要刪除這筆預約？'))return;
-  await deleteBookingById(id);
-  await renderAdminPanel();
-  await renderCalendar();
-}
+async function deleteAdminBooking(id){if(!confirm('確定要刪除這筆預約？'))return;await deleteBookingById(id);await renderAdminPanel();await renderCalendar();}
 
 // 啟動
-initSupabase().then(ok=>{
-  if(ok){initSpaceTabs();renderCalendar();refreshPendingBadge();}
-});
+initSupabase().then(ok=>{if(ok){initSpaceTabs();renderCalendar();refreshPendingBadge();}});
 </script>
 </body>
 </html>
