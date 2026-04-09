@@ -233,7 +233,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
   </div>
 </header>
 
-<!-- 學生端 -->
 <div class="main" id="view-student">
   <div class="space-tabs" id="space-tabs"></div>
   <div class="week-nav">
@@ -261,7 +260,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
   </div>
 </div>
 
-<!-- 管理員端 -->
 <div class="main" id="view-admin" style="display:none">
   <div id="admin-login-wrap">
     <div class="admin-login">
@@ -280,7 +278,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       <button class="btn btn-danger btn-sm" onclick="adminLogout()">登出</button>
     </div>
 
-    <!-- 待審核 -->
     <div class="panel-section urgent">
       <div class="panel-section-header">
         <span class="panel-section-title">⏳ 待審核預約</span>
@@ -289,7 +286,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       <div id="pending-list"></div>
     </div>
 
-    <!-- 課表匯入 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">📚 課表匯入</span>
@@ -328,7 +324,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 封鎖時段 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">🚫 封鎖時段設定</span>
@@ -361,7 +356,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 系辦預約 -->
     <div class="panel-section">
       <div class="panel-section-header"><span class="panel-section-title">✏️ 系辦直接預約（可覆蓋學生）</span></div>
       <div style="padding:16px 18px">
@@ -379,7 +373,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
       </div>
     </div>
 
-    <!-- 所有預約 -->
     <div class="panel-section">
       <div class="panel-section-header">
         <span class="panel-section-title">📋 所有預約記錄</span>
@@ -390,7 +383,6 @@ body{font-family:'Segoe UI','PingFang TC','Microsoft JhengHei',sans-serif;backgr
   </div>
 </div>
 
-<!-- 預約 Modal -->
 <div class="overlay" id="booking-modal">
   <div class="modal">
     <div class="modal-header">
@@ -438,7 +430,7 @@ EE702_SLOTS.forEach((s,i) => {
 
 const SPACES = [
   { id:'ee702',      name:'EE702',      openDays:[0,1,2,3,4,5,6], openMin:490,  closeMin:1260, slotBased:true,  note:'全週 08:10–21:00' },
-  { id:'testroom',   name:'測驗室',     openDays:[1,2,3,4,5],     openMin:480,  closeMin:1260, slotBased:false, note:'平日 08–21' },
+  { id:'testroom',   name:'測驗室',      openDays:[1,2,3,4,5],     openMin:480,  closeMin:1260, slotBased:false, note:'平日 08–21' },
   { id:'officeroom', name:'系辦會議室', openDays:[1,2,3,4,5],     openMin:480,  closeMin:1260, slotBased:false, note:'平日 08–21' },
 ];
 
@@ -576,7 +568,7 @@ function selectSpace(i){
 }
 
 // ============================================================
-//  Calendar
+//  Calendar (✅ 完美修正日期判斷)
 // ============================================================
 async function renderCalendar(){
   const sp=SPACES[spaceIdx];
@@ -637,7 +629,9 @@ async function renderCalendar(){
       const past=isPastMin(ds,row.start);
       const blk=isBlockedMin(blocked,ds,row.start,row.end);
       const sched=isScheduledMin(scheds,ds,row.start,row.end,dow);
-      const bk=bookings.find(b=>overlaps(row.start,row.end,b.start_hour,b.end_hour));
+      
+      // ✅ 修正：強制匹配 b.date === ds
+      const bk=bookings.find(b=>b.date===ds && overlaps(row.start,row.end,b.start_hour,b.end_hour));
       const isFirst=bk?bk.start_hour>=row.start&&bk.start_hour<row.end:false;
 
       let cls='slot available'+tc, inner='';
@@ -645,10 +639,8 @@ async function renderCalendar(){
       if(past){ cls='slot past'+tc; }
       else if(blk){
         cls='slot blocked'+tc;
-        // Show label only on first blocked slot of consecutive run
         const prevBlk=ri>0&&!rows[ri-1].isGap&&isBlockedMin(blocked,ds,rows[ri-1].start,rows[ri-1].end);
         if(!prevBlk){
-          // calculate bar height spanning consecutive blocked slots
           let span=0;
           for(let k=ri;k<rows.length&&!rows[k].isGap&&isBlockedMin(blocked,ds,rows[k].start,rows[k].end);k++) span++;
           const bh=span*44+(span-1)*1-2;
@@ -669,7 +661,6 @@ async function renderCalendar(){
         const statusCls=bk.status==='pending'?'pending':(bk.is_admin?'booked-admin':'booked');
         cls=`slot ${statusCls}${tc}`;
         if(isFirst){
-          // Calculate span across rows
           let span=0;
           for(let k=ri;k<rows.length&&!rows[k].isGap&&overlaps(rows[k].start,rows[k].end,bk.start_hour,bk.end_hour);k++) span++;
           const bh=span*44+(span-1)*1-2;
@@ -704,7 +695,7 @@ async function refreshPendingBadge(){
 }
 
 // ============================================================
-//  Booking Modal
+//  Booking Modal (✅ 完美修正日期判斷)
 // ============================================================
 function openModal(ds, startMin){
   pendingSlot={ds}; selStart=startMin; selEnd=null;
@@ -725,35 +716,29 @@ function drawForm(){
     if(selStart===null){
       picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">選擇開始節次</div><div class="slot-grid">`;
       EE702_SLOTS.forEach(slot=>{
+        // ✅ 修正：強制匹配 b.date === ds
         const dis=isPastMin(ds,slot.start)||isBlockedMin(cached.blocked,ds,slot.start,slot.end)||
                   isScheduledMin(cached.scheds,ds,slot.start,slot.end,dow)||
-                  cached.bookings.some(b=>overlaps(slot.start,slot.end,b.start_hour,b.end_hour));
+                  cached.bookings.some(b=>b.date===ds && overlaps(slot.start,slot.end,b.start_hour,b.end_hour));
         picker+=`<div class="slot-chip${dis?' disabled':''}"${!dis?` onclick="setStart(${slot.start})"`:''}>`+
           `<div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`;
       });
       picker+='</div>';
     } else {
-      // Show selected start + end picker
       const startSlot=EE702_SLOTS.find(s=>s.start===selStart);
       picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">
         選擇結束節次 <span style="font-weight:400;color:var(--text-3)">（起：第${startSlot?.id}節 ${minToTime(selStart)}，點選同一節可取消）</span>
       </div><div class="slot-grid">`;
       EE702_SLOTS.forEach(slot=>{
         if(slot.start<selStart){ picker+=`<div class="slot-chip disabled"><div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`; return; }
-        // reset if clicking start again
         if(slot.start===selStart){
           picker+=`<div class="slot-chip selected" onclick="setStart(null)"><div class="sc-node">第${slot.id}節</div><div class="sc-time">${minToTime(slot.start)}–${minToTime(slot.end)}</div></div>`; return;
         }
         const inRange=selEnd!==null&&slot.end<=selEnd;
         const isSelEnd=slot.end===selEnd;
-        const dis=overlaps(selStart,slot.end,...(()=>{
-          // Check if range [selStart, slot.end] has any conflict
-          const conflict=cached.bookings.some(b=>overlaps(selStart,slot.end,b.start_hour,b.end_hour));
-          const blk=isBlockedMin(cached.blocked,ds,selStart,slot.end);
-          const sched=isScheduledMin(cached.scheds,ds,selStart,slot.end,dow);
-          return [0,conflict||blk||sched?1:0]; // trick: if conflict, make aS>=aE so overlaps=false, use separate check
-        })())&&false; // always false, use manual check below
-        const hasConflict=cached.bookings.some(b=>overlaps(selStart,slot.end,b.start_hour,b.end_hour))||
+        
+        // ✅ 修正：強制匹配 b.date === ds
+        const hasConflict=cached.bookings.some(b=>b.date===ds && overlaps(selStart,slot.end,b.start_hour,b.end_hour))||
                           isBlockedMin(cached.blocked,ds,selStart,slot.end)||
                           isScheduledMin(cached.scheds,ds,selStart,slot.end,dow);
         const chipCls=hasConflict?'disabled':(isSelEnd?'selected':inRange?'in-range':'');
@@ -767,9 +752,10 @@ function drawForm(){
     const rows=getHourlyRows(sp);
     picker=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin-bottom:6px">選擇開始時間</div><div class="time-grid">`;
     rows.forEach(row=>{
+      // ✅ 修正：強制匹配 b.date === ds
       const dis=isPastMin(ds,row.start)||isBlockedMin(cached.blocked,ds,row.start,row.end)||
                 isScheduledMin(cached.scheds,ds,row.start,row.end,dow)||
-                cached.bookings.some(b=>overlaps(row.start,row.end,b.start_hour,b.end_hour));
+                cached.bookings.some(b=>b.date===ds && overlaps(row.start,row.end,b.start_hour,b.end_hour));
       const sel=row.start===selStart;
       picker+=`<div class="time-chip${dis?' disabled':sel?' selected':''}"${!dis?` onclick="setStart(${row.start})"`:''}>` +minToTime(row.start)+'</div>';
     });
@@ -777,7 +763,8 @@ function drawForm(){
     if(selStart!==null){
       picker+=`<div style="font-size:13px;font-weight:500;color:var(--text-2);margin:14px 0 6px">選擇結束時間</div><div class="time-grid">`;
       for(let m=selStart+60;m<=sp.closeMin;m+=60){
-        const hasConflict=cached.bookings.some(b=>overlaps(selStart,m,b.start_hour,b.end_hour))||
+        // ✅ 修正：強制匹配 b.date === ds
+        const hasConflict=cached.bookings.some(b=>b.date===ds && overlaps(selStart,m,b.start_hour,b.end_hour))||
                           isBlockedMin(cached.blocked,ds,selStart,m)||
                           isScheduledMin(cached.scheds,ds,selStart,m,dow);
         const sel=m===selEnd;
@@ -787,7 +774,6 @@ function drawForm(){
     }
   }
 
-  // AC notice for EE702
   const acNotice=sp.slotBased?`<div class="alert alert-warning" style="margin-top:12px">
     ⚠️ <strong>空調注意</strong>：17:00 後沒有中央空調；17:00 前若需要空調請主動洽詢系辦。
   </div>`:'';
